@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head id="h1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Septa Faare Calculator</title>
+  <link rel='stylesheet' href="style.css">
+  <script type="text/javascript" src="http://ajax.microsoft.com/ajax/jQuery/jquery-1.3.2.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      let zone = "";
+      let days = "";
+      let rides = "";
+      let disp_inf = "";
+      let check = "";
+
+/*function for occuring events in select zone option */
+      $('#zones').change(function() {
+        zone = $(this).attr('value');
+        console.log($(info).attr('value'));
+        if (days != "") {
+          document.getElementById('ride').disabled = false;
+        }
+      });
+
+      /*function for occuring events in select riding time option */
+      $('#info').change(function() {
+        days = $(this).attr('value');
+        console.log(document.getElementById('rdo1').checked);
+        console.log(document.getElementById('rdo2').checked);
+        if (zone != "" && (document.getElementById('rdo1').checked == true || document.getElementById('rdo2').checked == true)) {
+          //if(zone!=""){
+          document.getElementById('ride').disabled = false;
+        }
+        if (days == "anytime") {
+          $("#rdo2").attr("disabled", true).attr("checked", false);
+          $('#di').html("You have to purchase your ticket in advance");
+        } else {
+          $("#rdo2").attr("disabled", false);
+          $('#di').html(obj.info[$(this).val()]);
+        }
+      })
+
+      /*function for taking input as total rides in textbox & calling of function for calculating product after hitting ENTER button */
+      $('#ride').keydown(function(e) {
+        if (e.keyCode == 13) {
+          rides = $(this).attr('value');
+          document.getElementById('d1').innerHTML = "$" + values(zone, days, rides);
+
+        }
+      });
+
+      /*function for calling toggle() function for storing radio buttons values in javascript & for disableing the radio button  */
+      $('#rdo1').change(function() {
+        //console.log(zones);
+        //console.log(info);
+        if (zone != "" && days != "") {
+          document.getElementById('ride').disabled = false;
+        }
+        toggle();
+      })
+      $('#rdo2').change(function() {
+        if (zone != "" && days != "") {
+          document.getElementById('ride').disabled = false;
+        }
+        toggle();
+      })
+    })
+  </script>
+</head>
+
+<body>
+  <script src="scripts/main.js"></script>
+  <div id="nav">
+    <img id="logo" src="img/logo.png" alt="Septa">
+    <h3>Regional Rail Fares</h3>
+  </div>
+
+  <div class="cont">
+    <span class="sp">Where are you going?</span></br>
+    <select id="zones"><option id="o1" disabled selected value> select zone </option></select>
+  </div>
+  <hr>
+  <div class="cont">
+    <span class="sp">When are you riding?</span></br>
+    <select id="info"><option disabled selected value> select riding time </option></select></br>
+    <label id="di">Helper text that explains the option above</label>
+  </div>
+  <div id="details"></div>
+  <hr>
+
+  <div class="cont">
+    <span class="sp">Where will you purchase the fare? </span></br>
+    <input type="radio" id="rdo1" name="test" value="advance_purchase">Station Kiosk<br>
+    <input type="radio" id="rdo2" name="test" value="onboard_purchase">Onboard<br>
+  </div>
+  <hr>
+
+  <div class="cont">
+    <span class="sp">How many rides would you need? </span></br>
+    <input placeholder="Enter total rides & hit ENTER button" type="text" id="ride" name="ride_no" value="">
+  </div>
+</body>
+
+<footer>
+  <div id=d1>
+  </div>
+  <p>Your fare will cost</p>
+</footer>
+
+</html>
